@@ -167,7 +167,156 @@
 			// END PLATFORMS  ------------------
 			// ----------------------------------------
 
+			// ----------------------------------------
+			// PLAYER  ------------------
+			// ----------------------------------------
+				this.player = this.add.sprite(32,0,'dude');
+
+				this.physics.arcade.enable(this.player);
+
+				this.player.body.collideWorldBounds = true;
+				this.player.body.setSize(20,32,5,16);
+
+				this.player.animations.add('left',[0,1,2,3],10, true);
+				this.player.animations.add('turn',[4],20,true);
+				this.player.animations.add('right',[5,6,7,8],10, true);
+
+				this.camera.follow(this.player);
+
+				
+			// ----------------------------------------
+			// END PLAYER  ------------------
+			// ----------------------------------------
+
+			// ----------------------------------------
+			// CONTROLS  ------------------
+			// ----------------------------------------
+				this.cursors = this.input.keyboard.createCursorKeys();
+
+				this.clouds.callAll('start');
+			// ----------------------------------------
+			// END CONTROLS  ------------------
+			// ----------------------------------------
+
+		},
+
+		customStep: function (player, platform) {
+			if (!this.locked && player.body.velocity.y > 0) {
+				this.locked = true;
+				this.lockedTo = platform;
+				platform.playerLocked = true;
+
+				player.body.velocity.y = 0;
+			}
+		},
+
+		checkLock: function () {
+			this.player.body.velocity.y = 0;
+
+			/* 
+			* if the player has walked off either side of the platform then they're no longer locked to it
+			* 
+			*/
+
+			if (this.player.body.right < this.lockedTo.body.x || this.player.body.x > this.lockedTo.body.right) {
+				this.cancelLock();
+			}
+		},
+
+		cancelLock: function () {
+			this.wasLocked = true;
+			this.locked = false;
+		},
+
+		preRender: function () {
+			
+			if (this.game.paused) {
+				// because preRender still runs even if your game pauses!
+				return; // end the prerender
+			}
+
+			if (this.locked || this.wasLocked) {
+				this.player.x += this.lockedTo.deltaX;
+				this.player.y += this.lockedTo.y - 48;
+
+				if (this.player.body.velocity.x !== 0) {
+					this.player.body.velocity.y = 0;
+				}
+			}
+
+			if (this.willJump) {
+				this.willJump = false;
+
+				if (this.lockedTo && this.lockedTo.deltaY < 0 && this.wasLocked) {
+					// if the platform is moving up we add its velocity to the player jump
+					this.player.body.velocity.y = -300 + (this.lockedTo.deltaY * 10);
+				}
+				else {
+					this.player.body.velocity.y = -300;
+				}
+
+				this.jumpTimer = this.time.time + 750;
+			}
+
+			if (this.wasLocked) {
+				this.wasLocked = false;
+				this.lockedTo.playerLocked = false;
+				this.lockedTo = null;
+			}
+
+		},
+
+		update: function () {
+			
+			// ----------------------------------------
+			// BACKGROUND  ------------------
+			// ----------------------------------------
+				this.background.tilePosition.x = -(this.camera.x * 0.7);
+				this.trees.tilePosition.x = -(this.camera.x * 0.9);
+			// ----------------------------------------
+			// END BACKGROUND  ------------------
+			// ----------------------------------------
+			
+			// ----------------------------------------
+			// COLLISIONS  ------------------
+			// ----------------------------------------
+				this.physics.arcade.collide(this.player,this.stationary);
+				this.physics.arcade.collide(this.player,this.clouds,this.customStep,null,this);
+			// ----------------------------------------
+			// END COLLISIONS  ------------------
+			// ----------------------------------------
+
+			/* 
+			* do the following AFTER the collide check, or you won't have blocked/touching set
+			* 
+			*/
+
+			var standing = this.player.body.blocked.down || this.player.body.touching.down || this.locked;
+
+			this.player.body.velocity.x = 0;
+
+			if (this.cursors.left.isDown) {
+				this.player.body.velocity.x = -150;
+
+				if (this.facing != 'left') {
+					this.player.play('left');
+					this.facing = 'left';
+				}
+			}
+			else if (this.cursors.right.isDown) {
+				this.player.body.velocity.x = 150;
+
+				if (this.facing !== 'right') {
+					this.player.play('right');
+					this.facing = 'right';
+				}
+			}
+			else {
+				
+			}
+
 		}
+
 	}
 
 
