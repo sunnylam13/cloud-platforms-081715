@@ -18,3 +18,11 @@ You can jump on moving cloud platforms using the Phaser JS 2D game framework...
 cd ~/google\ drive/Programming\ Projects/cloud.platforms.081715.1/
 
 cd ~/google\ drive/Programming\ Projects/phaser-coding-tips/
+
+## ISSUES
+
+### Monday, August 17, 2015 6:53 PM
+
+Currently, the character jumps onto the platform and disappears...
+
+If you try to jump again, you seem to pop up out of the ground instead of jumping off the platform invisibly...
