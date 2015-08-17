@@ -1,6 +1,6 @@
-# TITLE OF PROJECT
+# CLOUD PLATFORMS 081715
 
-ENTER DESCRIPTION OF PROJECT
+You can jump on moving cloud platforms using the Phaser JS 2D game framework...
 
 ## LINKS
 
@@ -18,25 +18,3 @@ ENTER DESCRIPTION OF PROJECT
 cd ~/google\ drive/Programming\ Projects/cloud.platforms.081715.1/
 
 cd ~/google\ drive/Programming\ Projects/phaser-coding-tips/
-
-## FILE NOTES
-
-Thursday, July 30, 2015 1:34 PM
-
-The following files have been placed in `.gitignore`...  
-* contact.html
-* disclaimer.html
-* index.html
-* privacy.html
-* terms.html
-* css/style.css
-
-If you're going live with this project you'll want to re-enable `index.html` and `style.css` especially if pushing to github pages...
-
-Otherwise remove all of these from the project's `.gitignore` file...
-
-Don't forget to comment out...
-
-`meta(name="robots", content="noindex,nofollow")`
-
-If this is going to be publicly available and searchable...

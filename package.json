@@ -1,25 +1,25 @@
 {
-  "name": "3D.holocron.053015",
+  "name": "cloud.platforms.081715.1",
   "version": "1.0.0",
-  "description": "3D Holocron Project",
+  "description": "Cloud Platforms 081715",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sunnylam13/3D-Holocron-053015.git"
+    "url": "git+"
   },
   "keywords": [
-    "cube",
-    "animated",
-    "3D",
-    "image",
-    "gallery"
+    "game",
+    "2D",
+    "Phaser",
+    "Javascript",
+    "animation"
   ],
   "author": "Sunny Lam",
   "license": "MIT",
-  "homepage": "https://github.com/sunnylam13/3D-Holocron-053015#readme",
+  "homepage": "#readme",
   "devDependencies": {
     "browser-sync": "^2.7.3",
     "gulp": "^3.8.11",

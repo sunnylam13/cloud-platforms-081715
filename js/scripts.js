@@ -1,7 +1,3 @@
-// NOTE:  if there are extensions or plugins included then variable names may overlap without you knowing hence why we want to use name spacing
-
-// NOTE:  if you had your objects and functions inside the jQuery(document).ready() you can't access the object within the console...  if you do it outside of it however you can access it at any time and anywhere, it's no longer trapped as a local variable or function within the jQuery(document).ready()
-
 ////////////////////////////////////////////
 // 		VARIABLES
 ////////////////////////////////////////////
@@ -10,10 +6,10 @@
 	// the word app is too generic...
 	// you might use the initials of the website you're designing
 
-	var mcaApp = {};
+	var cloudPl1 = {};
 
 	// then below there you can add things
-	mcaApp.twitter = "@sunnylam";
+	cloudPl1.game = new Phaser.Game(640,480,Phaser.CANVAS,'game');
 
 ////////////////////////////////////////////
 // 		END VARIABLES
@@ -39,7 +35,7 @@
 	// for storing various event listeners
 	// this method will be used to listen for the open and close events and trigger those methods
 	// Ryan C often uses this though Drew doesn't always
-	mcaApp.events = function () {
+	cloudPl1.events = function () {
 		//
 	}
 ////////////////////////////////////////////
@@ -54,7 +50,7 @@
 	// method to initialize our application
 	// all our code will be put inside here
 	// you should not be defining things in here
-	mcaApp.init = function () {
+	cloudPl1.init = function () {
 		this.events();
 	}
 ////////////////////////////////////////////
@@ -65,7 +61,7 @@
 // 		EXECUTION CODE
 ////////////////////////////////////////////
 	jQuery(document).ready(function($) {
-		mcaApp.init();
+		cloudPl1.init();
 	});  //end doc.onready function
 ////////////////////////////////////////////
 // 		END EXECUTION CODE
