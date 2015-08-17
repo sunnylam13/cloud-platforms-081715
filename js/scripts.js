@@ -410,8 +410,10 @@
 		this.tweenY = this.game.add.tween(this.body);
 
 		for (var i = 0; i < motionPath.length; i++) {
-			this.tweenX.to( { x: motionPath[i].x }, motionPath[i].xSpeed, motionPath[i].xEase );
-			this.tweenY.to( { y: motionPath[i].y }, motionPath[y].ySpeed, motionPath[y].yEase );
+			// this.tweenX.to( { x: motionPath[i].x }, motionPath[i].xSpeed, motionPath[i].xEase );
+			// this.tweenY.to( { y: motionPath[i].y }, motionPath[y].ySpeed, motionPath[y].yEase ); // the error was caused by using motionPath[y] instead of motionPath[i]
+			this.tweenX.to( { x: motionPath[i].x }, motionPath[i].xSpeed, motionPath[i].xEase);
+			this.tweenY.to( { y: motionPath[i].y }, motionPath[i].ySpeed, motionPath[i].yEase);
 		}
 
 		this.tweenX.loop();
