@@ -30,7 +30,7 @@
 		this.lockedTo = null;
 		this.wasLocked = false;
 		this.willJump = false;
-	}
+	};
 
 	cloudPl1.CloudPlatform = function (game, x, y, key, group) {
 		if (typeof group === 'undefined') {
@@ -51,7 +51,7 @@
 		this.playerLocked = false;
 
 		group.add(this);
-	}
+	};
 
 ////////////////////////////////////////////
 // 		END VARIABLES
@@ -154,7 +154,7 @@
 
 					// ................... CLOUD 1...................
 						
-						var cloud1 = new CloudPlatform(this.game, 300, 450, 'cloud-platform', this.clouds);
+						var cloud1 = this.CloudPlatform(this.game, 300, 450, 'cloud-platform', this.clouds);
 
 						this.cloud1.addMotionPath([
 							{ x:"+200", xSpeed: 2000, xEase: "Linear", y: "-200", ySpeed: 2000, yEase: "Sine.easeIn" },
@@ -361,7 +361,44 @@
 
 		}
 
-	}
+	};
+
+	cloudPl1.CloudPlatform.prototype = Object.create(Phaser.Sprite.prototype);
+	cloudPl1.CloudPlatform.prototype.constructor = cloudPl1.CloudPlatform;
+
+
+	/* 
+	* motionPath is an array with objects of this structure...
+		* [
+        { x: "+200", xSpeed: 2000, xEase: "Linear", y: "-200", ySpeed: 2000, yEase: "Sine.easeIn" }
+       ]
+	* 
+	*/
+
+	cloudPl1.CloudPlatform.prototype.addMotionPath = function (motionPath) {
+		this.tweenX = this.game.add.tween(this.body);
+		this.tweenY = this.game.add.tween(this.body);
+
+		for (var i = 0; i < motionPath.length; i++) {
+			this.tweenX.to( { x: motionPath[i].x }, motionPath[i].xSpeed, motionPath[i].xEase );
+			this.tweenY.to( { y: motionPath[i].y }, motionPath[y].ySpeed, motionPath[y].yEase );
+		}
+
+		this.tweenX.loop();
+		this.tweenY.loop();
+	};
+
+	cloudPl1.CloudPlatform.prototype.start = function () {
+		this.tweenX.start();
+		this.tweenY.start();
+	};
+
+	cloudPl1.CloudPlatform.prototype.stop = function () {
+		this.tweenX.stop();
+		this.tweenY.stop();
+	};
+
+
 
 
 ////////////////////////////////////////////
@@ -390,6 +427,9 @@
 	// method to initialize our application
 	// all our code will be put inside here
 	// you should not be defining things in here
+	
+	cloudPl1.game.state.add('Game', cloudPl1.PhaserGame, true);
+
 	cloudPl1.init = function () {
 		this.events();
 	}
