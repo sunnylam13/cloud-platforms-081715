@@ -32,6 +32,15 @@
 		this.willJump = false;
 	};
 
+	/* 
+	* Because we want to have more than just one of these types of platform they are a good candidate for a custom object: CloudPlatform. 
+		* This is a special object that extends Phaser.Sprite
+		* You pass in the same parameters as if you were defining a normal Sprite. 
+		* The difference is that it enables itself for physics, defines an anchor and sets some body properties up. 
+		* As all CloudPlatforms need the same settings it saves some time to do this here.
+	* 
+	*/
+
 	CloudPlatform = function (game, x, y, key, group) {
 		if (typeof group === 'undefined') {
 			group = game.world;
@@ -152,11 +161,24 @@
 					// create a new object group known as 'clouds'
 					this.clouds = this.add.physicsGroup();
 
+					/* 
+					* The CloudPlatform object has a special method called addMotionPath. 
+						* It expects an array filled with path data
+					* 
+					*/
+
 					// ................... CLOUD 1...................
 						
 						var cloud1 = new CloudPlatform(this.game, 300, 450, 'cloud-platform', this.clouds);
 
-						this.cloud1.addMotionPath([
+						/* 
+						* current set should move it in a nearly circular path...
+						* the +200 is based on the platform's starting position...
+						* By default the CloudPlatform runs on a loop. 
+						* 
+						*/
+
+						cloud1.addMotionPath([
 							{ x:"+200", xSpeed: 2000, xEase: "Linear", y: "-200", ySpeed: 2000, yEase: "Sine.easeIn" },
 							{ x:"-200", xSpeed: 2000, xEase: "Linear", y: "-200", ySpeed: 2000, yEase: "Sine.easeOut" },
 							{ x: "-200", xSpeed: 2000, xEase: "Linear", y: "+200", ySpeed: 2000, yEase: "Sine.easeIn" },
@@ -167,6 +189,12 @@
 					// ................... CLOUD 2...................
 						var cloud2 = new CloudPlatform(this.game, 800, 96, 'cloud-platform', this.clouds);
 
+						/* 
+						* default loop...
+						* So it moves down by 300 pixels (using Sine.easeIn) and then moves back up by 300 pixels as well.
+						* 
+						*/
+
 						cloud2.addMotionPath([
 							{ x: "+0", xSpeed: 2000, xEase: "Linear", y: "+300", ySpeed: 2000, yEase: "Sine.easeIn" },
 							{ x: "-0", xSpeed: 2000, xEase: "Linear", y: "-300", ySpeed: 2000, yEase: "Sine.easeOut" }
@@ -174,6 +202,8 @@
 					// ...................END CLOUD 2 ...................
 
 					// ................... CLOUD 3...................
+						
+
 						var cloud3 = new CloudPlatform(this.game, 1300, 290, 'cloud-platform', this.clouds);
 
 						cloud3.addMotionPath([
@@ -386,12 +416,12 @@
 
 		this.tweenX.loop();
 		this.tweenY.loop();
-	};
+	}
 
 	CloudPlatform.prototype.start = function () {
 		this.tweenX.start();
 		this.tweenY.start();
-	};
+	}
 
 	CloudPlatform.prototype.stop = function () {
 		this.tweenX.stop();
