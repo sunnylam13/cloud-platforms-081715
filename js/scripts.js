@@ -72,7 +72,101 @@
 			// this.load.baseURL = 'http://files.phaser.io.s3.amazonaws.com/codingtips/issue004/';
 			this.load.crossOrigin = 'anonymous';
 
+			this.load.image('trees','assets/trees-h.png');
+			this.load.image('background','assets/clouds-h.png');
+			this.load.image('platform','assets/platform.png');
+			this.load.image('cloud-platform','assets/cloud-platform.png');
+
+			this.load.spritesheet('dude','assets/dude.png', 32, 48);
+		},
+
+		/* 
+		* here's where you start creating things
+		* 
+		*/
+
+		create: function () {
+
+			// ----------------------------------------
+			// BACKGROUND  ------------------
+			// ----------------------------------------
+				this.background = this.add.tileSprite(0,0,640,480,'background');
+				this.background.fixedToCamera = true;
+			// ----------------------------------------
+			// END BACKGROUND  ------------------
+			// ----------------------------------------
 			
+			// ----------------------------------------
+			// TREES  ------------------
+			// ----------------------------------------
+				this.trees = this.add.tileSprite(0,364,640,116,'trees');
+				this.trees.fixedToCamera = true;
+			// ----------------------------------------
+			// END TREES  ------------------
+			// ----------------------------------------
+
+			// ----------------------------------------
+			// PLATFORMS  ------------------
+			// ----------------------------------------
+				
+				// DON'T MOVE  ------------------------------------------------
+					this.stationary = this.add.physicsGroup();
+
+					this.stationary.create(0,96,'platform');
+					this.stationary.create(632,220,'platform');
+					this.stationary.create(1100,300,'platform');
+
+					/* 
+					* set the gravity properties of the 'stationary' game objects
+					* 
+					*/
+
+					this.stationary.setAll('body.allowGravity',false);
+					this.stationary.setAll('body.immovable',true);
+				// END DON'T MOVE ------------------------------------------------
+				
+
+				// MOVE  ------------------------------------------------
+					
+					// create a new object group known as 'clouds'
+					this.clouds = this.add.physicsGroup();
+
+					// ................... CLOUD 1...................
+						
+						var cloud1 = new CloudPlatform(this.game, 300, 450, 'cloud-platform', this.clouds);
+
+						this.cloud1.addMotionPath([
+							{ x:"+200", xSpeed: 2000, xEase: "Linear", y: "-200", ySpeed: 2000, yEase: "Sine.easeIn" },
+							{ x:"-200", xSpeed: 2000, xEase: "Linear", y: "-200", ySpeed: 2000, yEase: "Sine.easeOut" },
+							{ x: "-200", xSpeed: 2000, xEase: "Linear", y: "+200", ySpeed: 2000, yEase: "Sine.easeIn" },
+							{ x: "+200", xSpeed: 2000, xEase: "Linear", y: "+200", ySpeed: 2000, yEase: "Sine.easeOut" }
+							]);
+					// ...................END CLOUD 1 ...................
+					
+					// ................... CLOUD 2...................
+						var cloud2 = new CloudPlatform(this.game, 800, 96, 'cloud-platform', this.clouds);
+
+						cloud2.addMotionPath([
+							{ x: "+0", xSpeed: 2000, xEase: "Linear", y: "+300", ySpeed: 2000, yEase: "Sine.easeIn" },
+							{ x: "-0", xSpeed: 2000, xEase: "Linear", y: "-300", ySpeed: 2000, yEase: "Sine.easeOut" }
+						]);
+					// ...................END CLOUD 2 ...................
+
+					// ................... CLOUD 3...................
+						var cloud3 = new CloudPlatform(this.game, 1300, 290, 'cloud-platform', this.clouds);
+
+						cloud3.addMotionPath([
+							{ x: "+500", xSpeed: 4000, xEase: "Expo.easeIn", y:"-200", ySpeed: 3000, yEase: "Linear" },
+							{ x: "-500", xSpeed: 4000, xEase: "Expo.easeOut", y: "+200", ySpeed: 3000, yEase: "Linear" }
+						]);
+					// ...................END CLOUD 3 ...................
+
+				// END MOVE ------------------------------------------------
+
+			// ----------------------------------------
+			// END PLATFORMS  ------------------
+			// ----------------------------------------
+
 		}
 	}
 
