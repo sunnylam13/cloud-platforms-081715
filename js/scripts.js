@@ -30,7 +30,28 @@
 		this.lockedTo = null;
 		this.wasLocked = false;
 		this.willJump = false;
-	}	
+	}
+
+	cloudPl1.CloudPlatform = function (game, x, y, key, group) {
+		if (typeof group === 'undefined') {
+			group = game.world;
+		}
+
+		Phaser.Sprite.call(this,game,x,y,key);
+
+		game.physics.arcade.enable(this);
+
+		this.anchor.x = 0.5;
+
+		this.body.customSeparateX = true;
+		this.body.customSeparateY = true;
+		this.body.allowGravity = false;
+		this.body.immovable = true;
+
+		this.playerLocked = false;
+
+		group.add(this);
+	}
 
 ////////////////////////////////////////////
 // 		END VARIABLES
@@ -312,7 +333,30 @@
 				}
 			}
 			else {
-				
+				if (this.facing !== 'idle') {
+					this.player.animations.stop();
+
+					if (this.facing === 'left') {
+						this.player.frame = 0;
+					}
+					else {
+						this.player.frame = 5;
+					}
+
+					this.facing = 'idle';
+				}
+			}
+
+			if (standing && this.cursors.up.isDown && this.time.time > this.jumpTimer) {
+				if (this.locked) {
+					this.cancelLock();
+				}
+
+				this.willJump = true;
+			}
+
+			if (this.locked) {
+				this.checkLock();
 			}
 
 		}
