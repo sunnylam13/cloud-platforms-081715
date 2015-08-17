@@ -11,6 +11,27 @@
 	// then below there you can add things
 	cloudPl1.game = new Phaser.Game(640,480,Phaser.CANVAS,'game');
 
+	/* 
+	* setup the variables
+	* 
+	*/
+
+	cloudPl1.PhaserGame = function () {
+		this.bg = null;
+		this.trees = null;
+
+		this.stationary = null;
+		this.clouds = null;
+
+		this.facing = 'left';
+		this.jumpTimer = 0;
+		this.cursors;
+		this.locked = false;
+		this.lockedTo = null;
+		this.wasLocked = false;
+		this.willJump = false;
+	}	
+
 ////////////////////////////////////////////
 // 		END VARIABLES
 ////////////////////////////////////////////

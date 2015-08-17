@@ -1,0 +1,14 @@
+/* 
+* index.scss
+* for:
+* index.jade
+* 
+*/
+
+body {
+	// centre div#game in the middle of the screen
+	@include flexboxColumn1;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+}
