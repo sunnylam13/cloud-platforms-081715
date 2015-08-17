@@ -32,7 +32,7 @@
 		this.willJump = false;
 	};
 
-	cloudPl1.CloudPlatform = function (game, x, y, key, group) {
+	CloudPlatform = function (game, x, y, key, group) {
 		if (typeof group === 'undefined') {
 			group = game.world;
 		}
@@ -154,7 +154,7 @@
 
 					// ................... CLOUD 1...................
 						
-						var cloud1 = this.CloudPlatform(this.game, 300, 450, 'cloud-platform', this.clouds);
+						var cloud1 = new CloudPlatform(this.game, 300, 450, 'cloud-platform', this.clouds);
 
 						this.cloud1.addMotionPath([
 							{ x:"+200", xSpeed: 2000, xEase: "Linear", y: "-200", ySpeed: 2000, yEase: "Sine.easeIn" },
@@ -363,8 +363,8 @@
 
 	};
 
-	cloudPl1.CloudPlatform.prototype = Object.create(Phaser.Sprite.prototype);
-	cloudPl1.CloudPlatform.prototype.constructor = cloudPl1.CloudPlatform;
+	CloudPlatform.prototype = Object.create(Phaser.Sprite.prototype);
+	CloudPlatform.prototype.constructor = CloudPlatform;
 
 
 	/* 
@@ -375,7 +375,7 @@
 	* 
 	*/
 
-	cloudPl1.CloudPlatform.prototype.addMotionPath = function (motionPath) {
+	CloudPlatform.prototype.addMotionPath = function (motionPath) {
 		this.tweenX = this.game.add.tween(this.body);
 		this.tweenY = this.game.add.tween(this.body);
 
@@ -388,12 +388,12 @@
 		this.tweenY.loop();
 	};
 
-	cloudPl1.CloudPlatform.prototype.start = function () {
+	CloudPlatform.prototype.start = function () {
 		this.tweenX.start();
 		this.tweenY.start();
 	};
 
-	cloudPl1.CloudPlatform.prototype.stop = function () {
+	CloudPlatform.prototype.stop = function () {
 		this.tweenX.stop();
 		this.tweenY.stop();
 	};
