@@ -44,6 +44,38 @@
 
 	// NOTE:  in terms of organization, Ryan prefers to put all other functions and variables above the object.init() method however in reality it doesn't matter
 
+	cloudPl1.PhaserGame.prototype = {
+
+		/* 
+		* startup the game functions
+		* setup the rendering
+		* resize the world
+		* startup the physics engine
+		* set the gravity level on the y axis
+		*/
+
+		init: function () {
+			this.game.renderer.renderSession.roundPixels = true;
+			this.world.resize(640*3,480);
+			this.physics.startSystem(Phaser.Physics.ARCADE);
+			this.physics.arcade.gravity.y = 600;
+		},
+
+		/* 
+		* where you load the game assets
+		* 
+		*/
+
+		preload: function () {
+			//  We need this because the assets are on Amazon S3
+			//  Remove the next 2 lines if running locally
+			// this.load.baseURL = 'http://files.phaser.io.s3.amazonaws.com/codingtips/issue004/';
+			this.load.crossOrigin = 'anonymous';
+
+			
+		}
+	}
+
 
 ////////////////////////////////////////////
 // 		END FUNCTIONS
