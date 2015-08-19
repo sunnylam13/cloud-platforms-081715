@@ -4,7 +4,9 @@ You can jump on moving cloud platforms using the Phaser JS 2D game framework...
 
 ## LINKS
 
-[Git Repo](https://github.com/sunnylam13/tanx-phaser-073015)
+[Live Demo](http://sunnylam13.github.io/cloud-platforms-081715)
+
+[Git Repo](https://github.com/sunnylam13/cloud-platforms-081715)
 
 ## RESOURCES
 
